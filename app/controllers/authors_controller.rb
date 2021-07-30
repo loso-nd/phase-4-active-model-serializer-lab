@@ -3,12 +3,12 @@ class AuthorsController < ApplicationController
 
   def index
     authors = Author.all 
-    render json: authors, except: [:created_at, :updated_at]
+    render json: authors, include: [:profile, :posts, 'posts.tags']
   end
 
   def show
     author = Author.find(params[:id])
-    render json: author, except: [:created_at, :updated_at]
+    render json: author,  include: [:profile, :posts, 'posts.tags'], except: [:created_at, :updated_at]
   end
 
   private
